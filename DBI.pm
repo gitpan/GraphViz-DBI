@@ -8,7 +8,7 @@ use Carp;
 use GraphViz;
 
 our $AUTOLOAD;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
 	my $this = shift;
@@ -55,7 +55,8 @@ sub is_foreign_key {
 	# This is my convention; override it to suit your needs.
 
 	my ($self, $table, $field) = @_;
-	return unless $field =~ /^(.*)_id$/;
+	return if $field =~ /$table[_-]id/i;
+	return unless $field =~ /^(.*)[_-]id$/i;
 	my $candidate = $1;
 	return unless $self->is_table($candidate);
 	return $candidate;
@@ -73,16 +74,19 @@ sub graph_tables {
 		my @fields = @{ $sth->{NAME} };
 		$sth->finish;
 
-		$self->{g}->add_node({ name => $table,
-		    shape => 'box',
-		    label => join "\n" => ($table, '', @fields) });
+		my $label = "{$table|";
 
 		for my $field (@fields) {
-			if (my $dep = $self->is_foreign_key($table, $field)) {
-				$self->{g}->add_edge({
-				    from => $table, to => $dep });
-			}
+		  $label .= $field.'\l';
+		  if (my $dep = $self->is_foreign_key($table, $field)) {
+		    $self->{g}->add_edge({ from => $table, to => $dep });
+		  }
 		}
+		$self->{g}->add_node({ name => $table,
+				       shape => 'record',
+				       label => "$label}",
+				     });
+
 	}
 	return $self->{g};
 }

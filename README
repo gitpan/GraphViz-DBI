@@ -57,10 +57,13 @@ TODO
 
 BUGS
     None known so far. If you find any bugs or oddities, please do inform
-    the author.
+    the Maintainer. Patches especially welcome.
 
 AUTHOR
     Marcel Grünauer <marcel@codewerk.com>
+
+MAINTAINER
+    Aaron Trevena  <aaron.trevena@droogs.org>
 
 COPYRIGHT
     Copyright 2001 Marcel Grünauer. All rights reserved.
