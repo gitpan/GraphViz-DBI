@@ -1,52 +1,58 @@
 NAME
-    GraphViz::DBI - graph database tables and relations
+    GraphViz::DBI - Graph database tables and relations
+
+VERSION
+    version 1.100860
 
 SYNOPSIS
       use GraphViz::DBI;
+      my $dbh = DBI->connect('...', '...', '...');
       print GraphViz::DBI->new($dbh)->graph_tables->as_png;
 
 DESCRIPTION
     This module constructs a graph for a database showing tables and
     connecting them if they are related. While or after constructing the
-    object, pass an open database handle, then call `graph_tables' to
+    object, pass an open database handle, then call "graph_tables" to
     determine database metadata and construct a GraphViz graph from the
     table and field information.
 
+    The methods described here are defined by this class; all other method
+    calls are passed to the underlying GraphViz object:
+
 METHODS
-    The following methods are defined by this class; all other method calls
-    are passed to the underlying GraphViz object:
+  new([$dbh])
+    Constructs the object; also creates a GraphViz object. The constructor
+    accepts an optional open database handle.
 
-    new( [$dbh] )
-        Constructs the object; also creates a GraphViz object. The
-        constructor accepts an optional open database handle.
+  set_dbh($dbh)
+    Sets the database handle.
 
-    set_dbh($dbh)
-        Sets the database handle.
+  get_dbh()
+    Returns the database handle.
 
-    get_dbh()
-        Returns the database handle.
+  get_tables()
+    Returns the tables defined in the database.
 
-    is_table($table)
-        Checks the database metadata whether the argument is a valid table
-        name.
+  is_table($table)
+    Checks the database metadata whether the argument is a valid table name.
 
-    is_foreign_key($table, $field)
-        Determines whether the field belonging to the table is a foreign key
-        into some other table. If so, it is expected to return the name of
-        that table. If not, it is expected to return a false value.
+  is_foreign_key($table, $field)
+    Determines whether the field belonging to the table is a foreign key
+    into some other table. If so, it is expected to return the name of that
+    table. If not, it is expected to return a false value.
 
-        For example, if there is a table called "product" and another table
-        contains a field called "product_id", then to indicate that this
-        field is a foreign key into the product table, the method returns
-        "product". This is the logic implemented in this class. You can
-        override this method in a subclass to suit your needs.
+    For example, if there is a table called "product" and another table
+    contains a field called "product_id", then to indicate that this field
+    is a foreign key into the product table, the method returns "product".
+    This is the logic implemented in this class. You can override this
+    method in a subclass to suit your needs.
 
-    graph_tables()
-        This method goes through all tables and fields and calls appropriate
-        methods to determine which tables and which dependencies exist, then
-        hand the results over to GraphViz. It returns the GraphViz object.
+  graph_tables()
+    This method goes through all tables and fields and calls appropriate
+    methods to determine which tables and which dependencies exist, then
+    hand the results over to GraphViz. It returns the GraphViz object.
 
-TODO
+FEATURE IDEAS
     *   Test with various database drivers to see whether they support the
         metadata interface.
 
@@ -55,22 +61,32 @@ TODO
     *   Provide the possibility to name edges to specify the type of
         relationship ('has-a', 'is-a', etc.).
 
-BUGS
-    None known so far. If you find any bugs or oddities, please do inform
-    the Maintainer. Patches especially welcome.
+INSTALLATION
+    See perlmodinstall for information and options on installing Perl
+    modules.
+
+BUGS AND LIMITATIONS
+    No bugs have been reported.
+
+    Please report any bugs or feature requests through the web interface at
+    <http://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz-DBI>.
+
+AVAILABILITY
+    The latest version of this module is available from the Comprehensive
+    Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
+    CPAN site near you, or see <http://search.cpan.org/dist/GraphViz-DBI/>.
+
+    The development version lives at
+    <http://github.com/hanekomu/GraphViz-DBI/>. Instead of sending patches,
+    please fork this project using the standard git and github
+    infrastructure.
 
 AUTHOR
-    Marcel Grünauer <marcel@codewerk.com>
+      Marcel Gruenauer <marcel@cpan.org>
 
-MAINTAINER
-    Aaron Trevena  <aaron.trevena@droogs.org>
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2001 by Marcel Gruenauer.
 
-COPYRIGHT
-    Copyright 2001 Marcel Grünauer. All rights reserved.
-
-    This library is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
-
-SEE ALSO
-    perl(1), GraphViz(3pm).
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

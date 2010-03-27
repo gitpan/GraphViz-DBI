@@ -1,51 +1,44 @@
 #!/usr/bin/perl
-
 use warnings;
 use strict;
-
 use Getopt::Long;
 use Pod::Usage;
 use DBI;
 use GraphViz::DBI;
-
-our $VERSION='0.01';
-
 my %opts = (
-    help     => 0,
-    man      => 0,
-    verbose  => 0,
-    dbd      => '',
-    dbname   => '',
-    dsn      => '',
-    user     => '',
-    pass     => '',
-    as       => '',
+    help    => 0,
+    man     => 0,
+    verbose => 0,
+    dbd     => '',
+    dbname  => '',
+    dsn     => '',
+    user    => '',
+    pass    => '',
+    as      => '',
 );
-
-GetOptions(\%opts, qw(
-    help
-    man
-    verbose
-    dbd=s
-    dbname=s
-    dsn=s
-    user=s
-    pass=s
-    as=s
-)) || pod2usage(2);
-
+GetOptions(
+    \%opts, qw(
+      help
+      man
+      verbose
+      dbd=s
+      dbname=s
+      dsn=s
+      user=s
+      pass=s
+      as=s
+      )
+) || pod2usage(2);
 pod2usage(1) if $opts{help};
 pod2usage(-exitstatus => 0, -verbose => 2) if $opts{man};
 $opts{dsn} = "dbi:$opts{dbd}:dbname=$opts{dbname}"
-    if $opts{dbd} && $opts{dbname};
+  if $opts{dbd} && $opts{dbname};
 pod2usage(1) unless $opts{dsn};
 $opts{as} ||= 'png';
-
 my $dbh = DBI->connect(@opts{qw/dsn user pass/});
-my $as = "as_$opts{as}";
+my $as  = "as_$opts{as}";
 print GraphViz::DBI->new($dbh)->graph_tables->$as;
 $dbh->disconnect;
-
 __END__
 
 =head1 NAME
@@ -121,7 +114,7 @@ Marcel GrE<uuml>nauer E<lt>marcel@codewerk.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2001 Marcel GrE<uuml>nauer. All rights reserved.
+Copyright 2001-2009 Marcel GrE<uuml>nauer. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

@@ -1,9 +1,27 @@
-Revision history for Perl extension GraphViz::DBI.
+Revision history for Perl extension GraphViz-DBI
 
-0.01  Mon Mar  5 21:11:04 2001
-	- original version; created by h2xs 1.20 with options
-		-XA -n GraphViz::DBI
+1.100860  2010-03-27 23:19:42 Europe/Vienna
+    - converted the distribution to Dist::Zilla-style
 
-0.02  Sat Mar 29 17:40:05 2003
-        - Updates by Aaron Trevena
+0.04  Thu Jul 25 15:27:43 CEST 2008 (Marcel Gruenauer <marcel@cpan.org>)
+    - Changed dist style and Changes back to standard. People didn't like it -
+      the nail that sticks out gets hammered down.
+    - Added standard test files; this will also help with CPANTS.
 
+0.03  Thu, 29 May 2008 12:05:22 -0000 (Marcel Gruenauer <marcel@cpan.org>)
+    - Converted Changes file to YAML style
+    - .shipit: added Twitter step
+    - Makefile.PL: added auto_install() and process_templates()
+    - lib/*: converted to template
+    - incorporated changes from Aaron Travena's version 0.02 from CPAN - had
+      forgotten about that version...
+    - added t/perlcriticrc
+    - updated MANIFEST
+    - .shipit: fixed svk.tagpattern
+    - tags: NEWFEATURE
+
+0.02  Sat, 29 Mar 2003 17:40:05 +0100 (Aaron Trevena <aaron.trevena@droogs.org>)
+    - Updates
+
+0.01  Mon, 05 Mar 2001 21:11:04 +0100 (Marcel Gruenauer <marcel@cpan.org>)
+    - original version
